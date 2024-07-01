@@ -1,3 +1,4 @@
+
 import Image from "next/image";
 import styles from "./page.module.scss";
 import Quote from "@/components/quote/page";
@@ -8,9 +9,9 @@ type QuoteTypes = {
   content: ReactNode;
   author: {
     avatar: {
-      url: string
+      url: string;
     };
-    title: string
+    title: string;
   };
   id: string;
 };
@@ -34,18 +35,20 @@ export default async function Home() {
     query: contentQuery,
   });
 
-  console.log("Data => ", data.pageContent.data.allQuotes);
+  const randomQuoteIndex = Math.floor(Math.random() * data.pageContent.data.allQuotes.length);
+  const quote = data.pageContent.data.allQuotes[randomQuoteIndex];
+
+
+  console.log(randomQuoteIndex)
 
   return (
     <main className={styles.main}>
-      {data.pageContent.data.allQuotes.map((quote: QuoteTypes) => (
-        <Quote
-          authorAvatar={quote.author.avatar.url}
-          authorName={quote.author.title}
-          content={quote.content}
-          key={quote.id}
-        />
-      ))}
+      <Quote
+        authorAvatar={quote.author.avatar.url}
+        authorName={quote.author.title}
+        content={quote.content}
+        key={quote.id}
+      />
     </main>
   );
 }

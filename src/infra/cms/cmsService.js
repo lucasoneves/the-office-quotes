@@ -1,11 +1,12 @@
 export default async function cmsService({query}) {
   const token = 'd4ebd57ef3b04d4696b7d0de1a02f8';
-  const pageContent = await fetch(' https://graphql.datocms.com', {
+  const pageContent = await fetch('https://graphql.datocms.com', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`
     },
+    next: { revalidate: 300 },
     body: JSON.stringify({
       query
     })
