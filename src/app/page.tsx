@@ -4,6 +4,7 @@ import styles from "./page.module.scss";
 import Quote from "@/components/quote/page";
 import cmsService from "../infra/cms/cmsService";
 import { ReactNode } from "react";
+import {redirect} from 'next/navigation';
 
 type QuoteTypes = {
   content: ReactNode;
@@ -31,6 +32,11 @@ export default async function Home() {
   }
 }`;
 
+async function refresh() {
+  'use server'
+  redirect('/')
+}
+
   const { data } = await cmsService({
     query: contentQuery,
   });
@@ -49,6 +55,9 @@ export default async function Home() {
         content={quote.content}
         key={quote.id}
       />
+      <form action={refresh}>
+        <button>Click me</button>
+      </form>
     </main>
   );
 }
