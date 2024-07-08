@@ -5,6 +5,8 @@ import Quote from "@/components/quote/page";
 import cmsService from "../infra/cms/cmsService";
 import { ReactNode } from "react";
 import {redirect} from 'next/navigation';
+import Link from "next/link";
+import Button from "@/components/Button";
 
 type QuoteTypes = {
   content: ReactNode;
@@ -44,11 +46,11 @@ async function refresh() {
   const randomQuoteIndex = Math.floor(Math.random() * data.pageContent.data.allQuotes.length);
   const quote = data.pageContent.data.allQuotes[randomQuoteIndex];
 
-
-  console.log(randomQuoteIndex)
-
   return (
     <main className={styles.main}>
+      <Link href={'/quotes'} className={styles['link']}>
+        <Button styleClass={styles['btn-cta']} title="See all" />
+      </Link>
       <Quote
         authorAvatar={quote.author.avatar.url}
         authorName={quote.author.title}
@@ -56,7 +58,7 @@ async function refresh() {
         key={quote.id}
       />
       <form action={refresh}>
-        <button>Click me</button>
+        <button className={styles['btn-cta']}>Load another</button>
       </form>
     </main>
   );

@@ -38,6 +38,8 @@
   --callout-border-rgb: 172, 175, 176;
   --card-rgb: 180, 185, 188;
   --card-border-rgb: 131, 134, 135;
+
+  --link-color: #154ed1;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -104,4 +106,15 @@ a {
   html {
     color-scheme: dark;
   }
+}
+
+
+.container {
+  max-width: 900px;
+  margin: 60px auto;
+}
+
+button {
+  background-color: transparent;
+  border: none;
 }
