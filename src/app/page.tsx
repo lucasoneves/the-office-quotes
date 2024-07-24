@@ -20,13 +20,13 @@ type QuoteTypes = {
 };
 export default async function Home() {
   const contentQuery = `{
-    allQuotes {
+  allQuotes {
     id
     content
     author {
       id
       title
-      avatar {
+      avatar{
         url
       }
     }
@@ -44,22 +44,25 @@ async function refresh() {
   });
 
   const randomQuoteIndex = Math.floor(Math.random() * data.pageContent.data.allQuotes.length);
+  console.log(randomQuoteIndex);
   const quote = data.pageContent.data.allQuotes[randomQuoteIndex];
 
   return (
     <main className={styles.main}>
-      <Link href={'/quotes'} className={styles['link']}>
-        <Button styleClass={styles['btn-cta']} title="See all" />
-      </Link>
+      <nav className={styles['nav-actions']}>
+        <Link href={'/quotes'} className={styles['link']}>
+          <Button styleClass={styles['btn-cta']} title="See all" />
+        </Link>
+        <form action={refresh}>
+          <Button styleClass={styles['btn-cta']} title="Load another" />
+        </form>
+      </nav>
       <Quote
         authorAvatar={quote.author.avatar.url}
         authorName={quote.author.title}
         content={quote.content}
         key={quote.id}
       />
-      <form action={refresh}>
-        <button className={styles['btn-cta']}>Load another</button>
-      </form>
     </main>
   );
 }

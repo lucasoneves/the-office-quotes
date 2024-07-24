@@ -26,3 +26,11 @@
     background-color: var(--link-color);
   }
 }
+
+.nav-actions {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  justify-content: center;
+  margin-bottom: 40px;
+}

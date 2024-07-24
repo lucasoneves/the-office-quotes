@@ -3,10 +3,13 @@
   border: none;
   padding: 12px;
   border-radius: 12px;
-  font-size: 12px;
+  font-size: 16px;
   cursor: pointer;
 
   &:hover {
     opacity: .85;
   }
+}
+.success {
+  background-color: #16a085;
 }
