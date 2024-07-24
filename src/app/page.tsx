@@ -1,10 +1,10 @@
-
+"use server";
 import Image from "next/image";
 import styles from "./page.module.scss";
 import Quote from "@/components/quote/page";
 import cmsService from "../infra/cms/cmsService";
 import { ReactNode } from "react";
-import {redirect} from 'next/navigation';
+import { redirect } from "next/navigation";
 import Link from "next/link";
 import Button from "@/components/Button";
 
@@ -19,42 +19,41 @@ type QuoteTypes = {
   id: string;
 };
 export default async function Home() {
+  const QUOTE_INDEX = Math.floor(Math.random() * 100);
   const contentQuery = `{
-  allQuotes {
-    id
-    content
-    author {
-      id
-      title
-      avatar{
-        url
-      }
+allQuotes(first: 100) {
+  content
+  author {
+    title
+    avatar {
+      url
     }
-    _status
   }
+}
 }`;
 
-async function refresh() {
-  'use server'
-  redirect('/')
-}
+  async function refresh() {
+    "use server";
+    redirect("/");
+  }
 
   const { data } = await cmsService({
     query: contentQuery,
   });
-
-  const randomQuoteIndex = Math.floor(Math.random() * data.pageContent.data.allQuotes.length);
-  console.log(randomQuoteIndex);
-  const quote = data.pageContent.data.allQuotes[randomQuoteIndex];
+  console.log(QUOTE_INDEX);
+  const quote = data.pageContent.data.allQuotes[QUOTE_INDEX];
 
   return (
     <main className={styles.main}>
-      <nav className={styles['nav-actions']}>
-        <Link href={'/quotes'} className={styles['link']}>
-          <Button styleClass={styles['btn-cta']} title="See all" />
+      <nav className={styles["nav-actions"]}>
+        <Link href={"/quotes"} className={styles["link"]}>
+          <Button styleClass={styles["btn-cta"]} title="See all" />
         </Link>
         <form action={refresh}>
-          <Button styleClass={styles['btn-cta']} title="Load another" />
+          <Button
+            styleClass={styles["btn-cta"]}
+            title="Load another"
+          />
         </form>
       </nav>
       <Quote

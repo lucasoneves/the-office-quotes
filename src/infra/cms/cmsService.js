@@ -7,6 +7,7 @@ export default async function cmsService({query}) {
       'Authorization': `Bearer ${token}`
     },
     next: { revalidate: 300 },
+    limit: 100,
     body: JSON.stringify({
       query
     })
