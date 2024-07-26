@@ -1,12 +1,12 @@
 "use server";
 import Image from "next/image";
-import styles from "./page.module.scss";
 import Quote from "@/components/quote/page";
 import cmsService from "../infra/cms/cmsService";
 import { ReactNode } from "react";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import Button from "@/components/Button";
+import styles from "./page.module.scss";
 
 type QuoteTypes = {
   content: ReactNode;
@@ -47,10 +47,11 @@ allQuotes(first: 100) {
     <main className={styles.main}>
       <nav className={styles["nav-actions"]}>
         <Link href={"/quotes"} className={styles["link"]}>
-          <Button styleClass={styles["btn-cta"]} title="See all" />
+          <Button isCta styleClass={styles["btn-cta"]} title="See all" />
         </Link>
         <form action={refresh}>
           <Button
+            isCta
             styleClass={styles["btn-cta"]}
             title="Load another"
           />

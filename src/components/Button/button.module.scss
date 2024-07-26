@@ -11,6 +11,13 @@
   gap: 6px;
   min-height: 44px;
 
+  &__cta {
+    background-color: var(--link-color);
+    padding: 20px 12px;
+    font-size: 20px;
+    width: 200px;
+  }
+
   &:hover {
     opacity: .85;
   }

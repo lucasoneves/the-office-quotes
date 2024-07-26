@@ -9,12 +9,13 @@ type ButtonTypes = {
   title: string;
   actionType?: "submit" | "reset" | "button" | undefined
   children?: React.ReactNode;
+  isCta?: boolean;
 };
 
-export default function Button({ styleClass, title, children, actionType }: ButtonTypes) {
+export default function Button({ styleClass, title, children, actionType, isCta }: ButtonTypes) {
   const { pending } = useFormStatus();
   return (
-    <button type={actionType} disabled={pending} className={`${styles["button"]} ${styleClass} `}>
+    <button type={actionType} disabled={pending} className={`${styles["button"]} ${isCta && styles['button__cta']} `}>
       {pending && <ButtonLoader />}
       {children}
       {title}
