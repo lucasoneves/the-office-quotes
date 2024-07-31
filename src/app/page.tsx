@@ -35,7 +35,7 @@ export default function Home() {
   }, []);
 
   // Função para lidar com a submissão do formulário e atualizar a citação
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event: any) => {
     try {
       setPending(true);
       event.preventDefault();
