@@ -1,15 +1,15 @@
-"use server";
-import Image from "next/image";
+"use client"; // Permite o uso de hooks do React
+
+import { useState, useEffect } from "react";
 import Quote from "@/components/quote/page";
-import cmsService from "../infra/cms/cmsService";
-import { ReactNode } from "react";
-import { redirect } from "next/navigation";
 import Link from "next/link";
 import Button from "@/components/Button";
 import styles from "./page.module.scss";
 
+import getRandomQuote from "@/components/ServerLoadMore";
+
 type QuoteTypes = {
-  content: ReactNode;
+  content: React.ReactNode;
   author: {
     avatar: {
       url: string;
@@ -18,30 +18,50 @@ type QuoteTypes = {
   };
   id: string;
 };
-export default async function Home() {
-  const QUOTE_INDEX = Math.floor(Math.random() * 100);
-  const contentQuery = `{
-allQuotes(first: 100) {
-  content
-  author {
-    title
-    avatar {
-      url
+
+export default function Home() {
+  // Estado para armazenar a citação atual
+  const [quote, setQuote] = useState<QuoteTypes | null>(null);
+  const [pending, setPending] = useState<boolean>(false);
+
+  // Busca uma citação aleatória ao carregar a página
+  useEffect(() => {
+    async function fetchInitialQuote() {
+      const initialQuote = await getRandomQuote();
+      setQuote(initialQuote);
     }
-  }
-}
-}`;
 
-  async function refresh() {
-    "use server";
-    redirect("/");
-  }
+    fetchInitialQuote();
+  }, []);
 
-  const { data } = await cmsService({
-    query: contentQuery,
-  });
-  console.log(QUOTE_INDEX);
-  const quote = data.pageContent.data.allQuotes[QUOTE_INDEX];
+  // Função para lidar com a submissão do formulário e atualizar a citação
+  const handleSubmit = async (event) => {
+    try {
+      setPending(true);
+      event.preventDefault();
+
+      // Chama a Server Action para obter uma nova citação
+      const newQuote = await getRandomQuote();
+
+      // Atualiza o estado da citação
+      if (newQuote) {
+        setQuote(newQuote);
+      }
+    } catch (error) {
+      console.error("Error on trying to fetch quote", error);
+    } finally {
+      setPending(false);
+    }
+  };
+
+  // Validação de segurança
+  if (!quote) {
+    return (
+      <main className={styles.main}>
+        <p>Error: No quote available. Please try again.</p>
+      </main>
+    );
+  }
 
   return (
     <main className={styles.main}>
@@ -49,12 +69,8 @@ allQuotes(first: 100) {
         <Link href={"/quotes"} className={styles["link"]}>
           <Button isCta styleClass={styles["btn-cta"]} title="See all" />
         </Link>
-        <form action={refresh}>
-          <Button
-            isCta
-            styleClass={styles["btn-cta"]}
-            title="Load another"
-          />
+        <form onSubmit={handleSubmit}>
+          <Button isCta styleClass={styles["btn-cta"]} pending={pending} title="Load another" />
         </form>
       </nav>
       <Quote
