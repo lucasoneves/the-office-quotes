@@ -17,7 +17,7 @@ type ButtonTypes = {
 
 export default function Button({ styleClass, title, children, actionType, isCta, pending, handleSubmit }: ButtonTypes) {
   return (
-    <button onSubmit={handleSubmit} type={actionType} disabled={pending} className={`${styles["button"]} ${isCta && styles['button__cta']} `}>
+    <button onSubmit={handleSubmit} type={actionType} disabled={pending} className={`${styles["button"]} ${isCta && styles['button__cta']} ${styles[styleClass]} `}>
       {pending && <ButtonLoader />}
       {children}
       {title}

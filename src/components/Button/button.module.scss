@@ -1,8 +1,8 @@
 .button {
-  background-color: gray;
-  border: none;
-  padding: 12px;
-  border-radius: 12px;
+  border: 1px solid #ccc;
+  background-color: transparent;
+  padding: 12px 20px;
+  border-radius: 6px;
   font-size: 16px;
   cursor: pointer;
   display: flex;
@@ -10,18 +10,22 @@
   justify-content: center;
   gap: 6px;
   min-height: 44px;
+  color: #000;
 
   &__cta {
-    background-color: var(--link-color);
     padding: 20px 12px;
     font-size: 20px;
-    width: 200px;
+    min-width: 200px;
+  }
+
+  &.success {
+    --bgColor: #16a085;
+    background-color: var(--bgColor);
+    border: 1px solid var(--bgColor);
+    color: white;
   }
 
   &:hover {
     opacity: .85;
   }
-}
-.success {
-  background-color: #16a085;
 }
