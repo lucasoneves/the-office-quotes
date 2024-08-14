@@ -1,10 +1,8 @@
-// src/app/quoteActions.ts
-
-"use server"; // Definido no início para usar Server Actions
 
 import cmsService from "@/infra/cms/cmsService";
+import { revalidatePath } from "next/cache";
 
-export async function getRandomQuote() {
+export async function getRandomQuote() {0
   const contentQuery = `{
     allQuotes(first: 100) {
       content
@@ -27,12 +25,13 @@ export async function getRandomQuote() {
 
     // Seleciona a citação aleatória
     const newQuote = data.pageContent.data.allQuotes[QUOTE_INDEX];
-
+    revalidatePath('/')
     return newQuote;
   } catch (error) {
     console.error(error);
     throw new Error("Failed to fetch quote");
   }
+
 }
 
 

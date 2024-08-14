@@ -10,13 +10,8 @@
   justify-content: center;
   gap: 6px;
   min-height: 44px;
-  color: #000;
-
-  &__cta {
-    padding: 20px 12px;
-    font-size: 20px;
-    min-width: 200px;
-  }
+  color: #fff;
+  font-family: inherit;
 
   &.success {
     --bgColor: #16a085;

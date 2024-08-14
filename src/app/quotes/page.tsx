@@ -11,7 +11,7 @@ export default function QuotePage() {
   return (
     <section>
       <Link href={"/"}>
-        <Button title="Voltar" styleClass={`${buttonStyles['button']}`}></Button>
+        <Button className={`${buttonStyles['button']}`}>Voltar</Button>
       </Link>
       <h1 className={styles["title"]}>Quotes</h1>
     </section>

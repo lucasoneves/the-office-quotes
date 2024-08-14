@@ -6,21 +6,28 @@ import styles from "./button.module.scss";
 import { SyntheticEvent } from "react";
 
 type ButtonTypes = {
-  styleClass: string;
-  title: string;
-  actionType?: "submit" | "reset" | "button" | undefined
+  className?: string;
+  actionType?: "submit" | "reset" | "button" | undefined;
   children?: React.ReactNode;
-  isCta?: boolean;
-  pending?: boolean;
+  loading?: boolean;
   handleSubmit?: React.EventHandler<SyntheticEvent>;
 };
 
-export default function Button({ styleClass, title, children, actionType, isCta, pending, handleSubmit }: ButtonTypes) {
+export default function Button({
+  className,
+  children,
+  actionType,
+  loading
+}: ButtonTypes) {
+  const { pending } = useFormStatus();
   return (
-    <button onSubmit={handleSubmit} type={actionType} disabled={pending} className={`${styles["button"]} ${isCta && styles['button__cta']} ${styles[styleClass]} `}>
-      {pending && <ButtonLoader />}
+    <button
+      type={actionType}
+      disabled={pending}
+      className={`${styles['button']} ${className}`}
+    >
+      {loading || pending && <ButtonLoader />}
       {children}
-      {title}
     </button>
   );
 }
