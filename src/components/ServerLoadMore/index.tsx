@@ -2,7 +2,7 @@
 import cmsService from "@/infra/cms/cmsService";
 import { revalidatePath } from "next/cache";
 
-export async function getRandomQuote() {0
+export async function getRandomQuote(revalidate?: boolean) {
   const contentQuery = `{
     allQuotes(first: 100) {
       content
@@ -25,7 +25,11 @@ export async function getRandomQuote() {0
 
     // Seleciona a citação aleatória
     const newQuote = data.pageContent.data.allQuotes[QUOTE_INDEX];
-    revalidatePath('/')
+    
+    if (revalidate) {
+      revalidatePath('/')
+    }
+
     return newQuote;
   } catch (error) {
     console.error(error);

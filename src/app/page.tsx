@@ -7,16 +7,16 @@ import styles from "./page.module.scss";
 import getRandomQuote from "@/components/ServerLoadMore";
 import NavActions from "@/components/NavActions";
 
+async function refresh() {
+  "use server";
+  const { quote } = await getRandomQuote(true);
+
+  return quote;
+}
 export default async function Home() {
 
-  async function refresh() {
-    "use server";
-    const { quote } = await getRandomQuote();
 
-    return quote;
-  }
-
-  let quote = await getRandomQuote();
+  const quote = await getRandomQuote();
 
   return (
     <main className={styles.main}>
