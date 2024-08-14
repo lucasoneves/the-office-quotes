@@ -8,8 +8,9 @@ import getRandomQuote from "@/components/ServerLoadMore";
 import NavActions from "@/components/NavActions";
 
 async function refresh() {
+  const revalidate = true;
   "use server";
-  const { quote } = await getRandomQuote(true);
+  const { quote } = await getRandomQuote(revalidate);
 
   return quote;
 }
