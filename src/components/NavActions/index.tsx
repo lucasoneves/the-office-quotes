@@ -1,20 +1,16 @@
 "use client";
 import Link from "next/link";
 import Button from "../Button";
-import styles from '@/app/page.module.scss';
+import styles from "@/app/page.module.scss";
 
-type ActionTypes = {
-  handleSubmit: string | ((formData: FormData) => void) | undefined
-}
-
-export default function NavActions({handleSubmit}: ActionTypes) {
+export default function NavActions({...props}) {
   return (
     <nav className={styles["nav-actions"]}>
       <Link href={"/quotes"} className={styles["link"]}>
-        <Button isCta styleClass={styles["btn-cta"]} title="See all" />
+        <Button className={styles["btn-cta"]}>See all</Button>
       </Link>
-      <form action={handleSubmit}>
-        <Button isCta styleClass={styles["btn-cta"]} title="Load another" />
+      <form {...props}>
+        <Button className={styles["btn-cta"]}>Load another quote</Button>
       </form>
     </nav>
   );

@@ -5,6 +5,7 @@ import Button from "@/components/Button";
 import styles from "./page.module.scss";
 
 import getRandomQuote from "@/components/ServerLoadMore";
+import NavActions from "@/components/NavActions";
 
 export default async function Home() {
 
@@ -19,14 +20,7 @@ export default async function Home() {
 
   return (
     <main className={styles.main}>
-      <nav className={styles["nav-actions"]}>
-        <Link href={"/quotes"} className={styles["link"]}>
-          <Button className={styles["btn-cta"]}>See all</Button>
-        </Link>
-        <form action={refresh}>
-          <Button className="">Load another one</Button>
-        </form>
-      </nav>
+      <NavActions action={refresh} />
       <Quote
         authorAvatar={quote.author.avatar.url}
         authorName={quote.author.title}
