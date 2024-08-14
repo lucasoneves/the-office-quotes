@@ -1,21 +1,17 @@
 import Quote from "@/components/quote/page";
-import { ReactNode } from "react";
-import Link from "next/link";
-import Button from "@/components/Button";
 import styles from "./page.module.scss";
 
 import getRandomQuote from "@/components/ServerLoadMore";
 import NavActions from "@/components/NavActions";
 
 async function refresh() {
-  const revalidate = true;
   "use server";
+  const revalidate = true;
   const { quote } = await getRandomQuote(revalidate);
 
   return quote;
 }
 export default async function Home() {
-
 
   const quote = await getRandomQuote();
 
